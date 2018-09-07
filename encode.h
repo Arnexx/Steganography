@@ -5,7 +5,9 @@
 #include <QFile>
 #include <QMessageBox>
 #include <iostream>
+#include <QByteArray>
 #include "stegoblock.h"
+#include "aes256.h"
 
 namespace Ui {
 class Encode;

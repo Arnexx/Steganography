@@ -86,12 +86,12 @@
     <rect>
      <x>200</x>
      <y>200</y>
-     <width>47</width>
-     <height>13</height>
+     <width>131</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Key</string>
+    <string>Key for Random</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="stegoTypeGroupBox">
@@ -199,6 +199,35 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="aesKeyLineEdit">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>310</y>
+     <width>241</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>1234567890qazwsxedcrfvtgbyhnujmi</string>
+   </property>
+   <property name="maxLength">
+    <number>32</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="aesKeyLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>280</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>AES256 Key</string>
    </property>
   </widget>
  </widget>

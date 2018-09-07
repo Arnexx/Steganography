@@ -47,6 +47,7 @@ void Encode::on_startButton_clicked()
     QString containerFileName = ui->containerFileLineEdit->text();
     QByteArray dataBlock, containerBlock;
     int headerLength = 54;
+    AES256 aes;
     dataFile.setFileName(dataFileName);
     containerFile.setFileName(containerFileName);
 
@@ -60,20 +61,26 @@ void Encode::on_startButton_clicked()
     containerFile.open(QIODevice::ReadWrite);
     stegoFile.open(QIODevice::WriteOnly);
 
-
+    containerBlock.resize(128);
     containerBlock = containerFile.read(headerLength); //copy header
     stegoFile.write(containerBlock);
 
-    int containerBlocksAmount = (containerFile.size() - headerLength) / 256+1;
-    int dataBlocksAmount = dataFile.size() / 32+1;
+    int containerBlocksAmount = (containerFile.size() - headerLength) / 128+1;
+    int dataBlocksAmount = dataFile.size() / 16+1;
     int length = containerBlocksAmount < dataBlocksAmount ? containerBlocksAmount  : dataBlocksAmount;
     StegoBlock block;
     block.setKey(ui->keyLineEdit->text().toInt());
 
+    aes.setKey(ui->aesKeyLineEdit->text().toLatin1());
+
     for(int i=0; i < length; ++i)
     {
-        dataBlock = dataFile.read(32);
-        containerBlock = containerFile.read(256);
+        dataBlock = dataFile.read(16);
+        containerBlock = containerFile.read(128);
+
+        aes.encrypt(dataBlock);
+        //encode aes256
+        //
         block.setDataArray(dataBlock);
         block.setContainerBlock(containerBlock);
 
@@ -93,7 +100,7 @@ void Encode::on_startButton_clicked()
     {
         for(int i = 0; i < containerBlocksAmount - length + 1; ++i)
         {
-            containerBlock = containerFile.read(256);
+            containerBlock = containerFile.read(128);
             stegoFile.write(containerBlock);
         }
     }

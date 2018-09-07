@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include "stegoblock.h"
+#include "aes256.h"
 
 namespace Ui {
 class Decode;

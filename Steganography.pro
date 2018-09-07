@@ -28,13 +28,17 @@ SOURCES += \
         mainwindow.cpp \
     stegoblock.cpp \
     encode.cpp \
-    decode.cpp
+    decode.cpp \
+    aes256.cpp \
+    gf256.cpp
 
 HEADERS += \
         mainwindow.h \
     stegoblock.h \
     encode.h \
-    decode.h
+    decode.h \
+    aes256.h \
+    gf256.h
 
 FORMS += \
         mainwindow.ui \

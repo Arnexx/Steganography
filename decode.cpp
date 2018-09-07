@@ -57,7 +57,7 @@ void Decode::on_startButton_clicked()
     containerBlock = stegoFile.read(headerLength); //skip header
 
 
-    int containerBlocksAmount = (stegoFile.size() - headerLength) / 256+1;
+    int containerBlocksAmount = (stegoFile.size() - headerLength) / 128+1;
     int length = containerBlocksAmount;
     StegoBlock block;
     bool endFlag = false;
@@ -66,7 +66,7 @@ void Decode::on_startButton_clicked()
     for(int i=0; i < length; ++i)
     {
 
-        containerBlock = stegoFile.read(256);
+        containerBlock = stegoFile.read(128);
         block.setContainerBlock(containerBlock);
 
 
@@ -79,7 +79,7 @@ void Decode::on_startButton_clicked()
         if(ui->randomBitRadioButton->isChecked())         //decode
             endFlag = block.decode(stegoType::RandomBits);
 
-        dataFile.write((QByteArray)block.getDataArray());
+        dataFile.write((QByteArray)block.getDataArray()); //decode aes256
 
         if(endFlag)
             break;

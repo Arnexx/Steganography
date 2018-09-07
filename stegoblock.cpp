@@ -64,7 +64,7 @@ unsigned char StegoBlock::getBit(unsigned char byteValue, int bitNum)
 void StegoBlock::encode(stegoType type)
 {
     int iter = 0;
-    for(int i = 0; i < 32; ++i)
+    for(int i = 0; i < 16; ++i)
     {
         for(int j = 0; j < 8; ++j)
         {
@@ -90,7 +90,7 @@ void StegoBlock::encode(stegoType type)
 bool StegoBlock::decode(stegoType type)
 {
     int iter = 0;
-    for(int i = 0; i < 32; ++i)
+    for(int i = 0; i < 16; ++i)
     {
         dataArray[i] = 0;
 
