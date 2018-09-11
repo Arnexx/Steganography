@@ -6,7 +6,32 @@ Encode::Encode(QWidget *parent) :
     ui(new Ui::Encode)
 {
     ui->setupUi(this);
+    setStyles(styles);
     stegoFile.setFileName("stegoPicture.bmp");
+
+    ui->keyLineEdit->setVisible(false);
+    ui->keyLabel->setVisible(false);
+
+    QPixmap background(":/image/rc/background.jpg");
+    background = background.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, background);
+    this->setPalette(palette);
+
+    ui->aesKeyLineEdit->setStyleSheet(styles[1]);
+    ui->containerFileLineEdit->setStyleSheet(styles[1]);
+    ui->dataFileLineEdit->setStyleSheet(styles[1]);
+    ui->keyLineEdit->setStyleSheet(styles[1]);
+
+    ui->lsbRadioButton->setStyleSheet(styles[2]);
+    ui->msbRadioButton->setStyleSheet(styles[2]);
+    ui->randomBitRadioButton->setStyleSheet(styles[2]);
+
+    ui->backButton->setStyleSheet(styles[3]);
+    ui->startButton->setStyleSheet(styles[3]);
+
+
+
 }
 
 Encode::~Encode()
@@ -14,59 +39,35 @@ Encode::~Encode()
     delete ui;
 }
 
-void Encode::on_backButton_clicked()
-{
-    this->close();
-}
-
-void Encode::on_randomBitRadioButton_clicked(bool checked)
-{
-    if(checked)
-        ui->keyLineEdit->setEnabled(true);
-}
-
-void Encode::on_lsbRadioButton_clicked(bool checked)
-{
-    if(checked)
-    {
-         ui->keyLineEdit->setDisabled(true);
-    }
-}
-
-void Encode::on_msbRadioButton_clicked(bool checked)
-{
-    if(checked)
-    {
-         ui->keyLineEdit->setDisabled(true);
-    }
-}
-
 void Encode::on_startButton_clicked()
 {
+    QByteArray dataBlock, containerBlock, dataBlock2;
     QString dataFileName = ui->dataFileLineEdit->text();
     QString containerFileName = ui->containerFileLineEdit->text();
-    QByteArray dataBlock, containerBlock;
+
     int headerLength = 54;
     AES256 aes;
+    containerFileName = ui->containerFileLineEdit->text();
+    ui->progressBar->setValue(0);
+
     dataFile.setFileName(dataFileName);
     containerFile.setFileName(containerFileName);
-
     if(ui->musicBox->isChecked())
     {
         headerLength = 104;
         stegoFile.setFileName("stegoMusic.wav");
     }
 
+
     dataFile.open(QIODevice::ReadWrite);
     containerFile.open(QIODevice::ReadWrite);
     stegoFile.open(QIODevice::WriteOnly);
 
-    containerBlock.resize(128);
     containerBlock = containerFile.read(headerLength); //copy header
     stegoFile.write(containerBlock);
 
     int containerBlocksAmount = (containerFile.size() - headerLength) / 128+1;
-    int dataBlocksAmount = dataFile.size() / 16+1;
+    int dataBlocksAmount = dataFile.size() / 16+2;
     int length = containerBlocksAmount < dataBlocksAmount ? containerBlocksAmount  : dataBlocksAmount;
     StegoBlock block;
     block.setKey(ui->keyLineEdit->text().toInt());
@@ -75,11 +76,17 @@ void Encode::on_startButton_clicked()
 
     for(int i=0; i < length; ++i)
     {
-        dataBlock = dataFile.read(16);
+        if(length == dataBlocksAmount &&  i == (length-1))
+        {
+            for(int j = 0; j < 16; j++)
+                dataBlock[j] = 0;
+        }
+        else
+            dataBlock = dataFile.read(16);
         containerBlock = containerFile.read(128);
 
         aes.encrypt(dataBlock);
-        //encode aes256
+        //encrypt aes256
         //
         block.setDataArray(dataBlock);
         block.setContainerBlock(containerBlock);
@@ -92,9 +99,8 @@ void Encode::on_startButton_clicked()
         if(ui->randomBitRadioButton->isChecked())         //encode
             block.encode(stegoType::RandomBits);
 
-
-
         stegoFile.write((QByteArray)block.getContainerBlock());
+        ui->progressBar->setValue(i * 100 / length + 1);
     }
     if(containerBlocksAmount > length)
     {
@@ -108,10 +114,44 @@ void Encode::on_startButton_clicked()
     dataFile.close();
     containerFile.close();
     stegoFile.close();
-    ui->doneLabel->setText("DONE.");
+
 
     //QMessageBox::information(this,"Encode", "Done.");
 
 }
+
+void Encode::on_backButton_clicked()
+{
+    this->close();
+}
+
+void Encode::on_randomBitRadioButton_clicked(bool checked)
+{
+    if(checked)
+    {
+        ui->keyLineEdit->setVisible(true);
+        ui->keyLabel->setVisible(true);
+    }
+}
+
+void Encode::on_lsbRadioButton_clicked(bool checked)
+{
+    if(checked)
+    {
+        ui->keyLineEdit->setVisible(false);
+        ui->keyLabel->setVisible(false);
+    }
+}
+
+void Encode::on_msbRadioButton_clicked(bool checked)
+{
+    if(checked)
+    {
+        ui->keyLineEdit->setVisible(false);
+        ui->keyLabel->setVisible(false);
+    }
+}
+
+
 
 

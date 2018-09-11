@@ -70,7 +70,7 @@ AES256::AES256()
 
 }
 
-void AES256::encrypt(QByteArray data)
+void AES256::encrypt(QByteArray &data)
 {
     for(int i = 0; i < 4; i++)
         for(int j = 0; j < 4; j++)
@@ -95,7 +95,7 @@ void AES256::encrypt(QByteArray data)
 
 }
 
-void AES256::decrypt(QByteArray data)
+void AES256::decrypt(QByteArray &data)
 {
     for(int i = 0; i < 4; i++)
         for(int j = 0; j < 4; j++)
@@ -104,13 +104,13 @@ void AES256::decrypt(QByteArray data)
     addRoundKey(14);
     for (int i = 13; i > 0; i--)
     {
-        shiftRows();
-        subBytes();
+        invShiftRows();
+        invSubBytes();
         addRoundKey(i);
-        mixColumns();
+        invMixColumns();
     }
-    shiftRows();
-    subBytes();
+    invShiftRows();
+    invSubBytes();
     addRoundKey(0);
 
     for(int i = 0; i < 4; i++)
@@ -145,28 +145,6 @@ void AES256::rotWord(unsigned char word[4])
     word[3] = temp;
 }
 
-//unsigned char multx4(unsigned char a, unsigned char k)
-//{
-//    if(k == 0x01)
-//        return a;
-//    if(k == 0x02)
-//    {
-//        if(a < 0x80)
-//        {
-//            a <<= 1;
-//        }
-//        else
-//        {
-//            a <<= 1;
-//            a ^= 0x1b;
-//        }
-//    }
-//    if(k == 0x03)
-//    {
-//        a = mult4(a, 0x02) ^ a;
-//    }
-//    return a;
-//}
 
 void AES256::subBytes()
 {

@@ -30,7 +30,8 @@ SOURCES += \
     encode.cpp \
     decode.cpp \
     aes256.cpp \
-    gf256.cpp
+    gf256.cpp \
+    styles.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,9 +39,13 @@ HEADERS += \
     encode.h \
     decode.h \
     aes256.h \
-    gf256.h
+    gf256.h \
+    styles.h
 
 FORMS += \
         mainwindow.ui \
     encode.ui \
     decode.ui
+
+RESOURCES += \
+    res.qrc

@@ -7,7 +7,7 @@
 #include <iostream>
 #include "stegoblock.h"
 #include "aes256.h"
-
+#include "styles.h"
 namespace Ui {
 class Decode;
 }
@@ -26,11 +26,13 @@ private slots:
     void on_lsbRadioButton_clicked(bool checked);
     void on_msbRadioButton_clicked(bool checked);
     void on_startButton_clicked();
+    bool checkNullBlock(QByteArray block);
 
 private:
     Ui::Decode *ui;
     QFile dataFile;
     QFile stegoFile;
+    QString styles[10];
 };
 
 #endif // DECODE_H

@@ -118,7 +118,7 @@ bool StegoBlock::decode(stegoType type)
             nullBytesCounter++;
     }
 
-    if (nullBytesCounter >= 4)
+    if (nullBytesCounter >= 15)
         return true;
     else
         return false;

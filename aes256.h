@@ -14,7 +14,7 @@ private:
     unsigned char sBox[256];
     unsigned char invMult[256];
     unsigned char invSBox[256];
-    unsigned char rCon[4][14];
+    unsigned char rCon[4][15];
 
     void subBytes();
     void shiftRows();
@@ -26,12 +26,11 @@ private:
     void invMixColumns();
     void subWord(unsigned char word[4]);
     void rotWord(unsigned char word[4]);
-    //unsigned char multx4(unsigned char a, unsigned char k);
 
 public:
     AES256();
-    void encrypt(QByteArray data);
-    void decrypt(QByteArray data);
+    void encrypt(QByteArray &data);
+    void decrypt(QByteArray &data);
     void setKey(QByteArray key);
 };
 

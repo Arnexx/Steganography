@@ -10,8 +10,22 @@
     <height>370</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>-1</pointsize>
+    <weight>50</weight>
+    <italic>false</italic>
+    <bold>false</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Insert data to file</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog {
+font: 14px;
+color: #fff;
+}</string>
   </property>
   <widget class="QLineEdit" name="containerFileLineEdit">
    <property name="geometry">
@@ -30,7 +44,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>150</y>
+     <y>180</y>
      <width>113</width>
      <height>21</height>
     </rect>
@@ -41,12 +55,12 @@
   </widget>
   <widget class="QLineEdit" name="keyLineEdit">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>220</y>
+     <x>320</x>
+     <y>210</y>
      <width>113</width>
      <height>21</height>
     </rect>
@@ -64,44 +78,83 @@
      <height>16</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>Container File</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Container File&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="dataFileLabel">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>130</y>
-     <width>47</width>
-     <height>13</height>
+     <y>160</y>
+     <width>61</width>
+     <height>16</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLable {
+                      font:  14px;
+                    color: #faa;
+                    };</string>
+   </property>
    <property name="text">
-    <string>Data File</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Data File&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="keyLabel">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>200</y>
+     <x>320</x>
+     <y>190</y>
      <width>131</width>
      <height>16</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>Key for Random</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Key for Random&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="stegoTypeGroupBox">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>50</y>
-     <width>151</width>
+     <x>320</x>
+     <y>40</y>
+     <width>191</width>
      <height>121</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QGroupBox {
+border: none;
+font: 12px;
+color: #fff;
+}</string>
    </property>
    <property name="title">
     <string>Steganography Encode Type</string>
@@ -114,6 +167,12 @@
       <width>84</width>
       <height>19</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton{
+color: #fff;
+font: 12px;
+}</string>
     </property>
     <property name="text">
      <string>LSB</string>
@@ -178,35 +237,28 @@
   <widget class="QCheckBox" name="musicBox">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>70</y>
-     <width>72</width>
+     <x>40</x>
+     <y>110</y>
+     <width>91</width>
      <height>19</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Music file</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="doneLabel">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>310</y>
-     <width>81</width>
-     <height>21</height>
-    </rect>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox {
+color: #fff;
+font-size: 13px;
+}</string>
    </property>
    <property name="text">
-    <string/>
+    <string>Music File</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="aesKeyLineEdit">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>310</y>
-     <width>241</width>
+     <x>20</x>
+     <y>290</y>
+     <width>260</width>
      <height>21</height>
     </rect>
    </property>
@@ -220,14 +272,37 @@
   <widget class="QLabel" name="aesKeyLabel">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>280</y>
+     <x>20</x>
+     <y>270</y>
      <width>71</width>
      <height>16</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>AES256 Key</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;AES256 Key&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QProgressBar" name="progressBar">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>330</y>
+     <width>240</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QProgressBar {
+color: #fff;
+}</string>
+   </property>
+   <property name="value">
+    <number>0</number>
    </property>
   </widget>
  </widget>

@@ -2,8 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QString>
 #include "encode.h"
 #include "decode.h"
+#include "styles.h"
+#include "stegoblock.h"
 
 
 namespace Ui {
@@ -25,6 +28,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QString styles[10];
 };
 
 #endif // MAINWINDOW_H

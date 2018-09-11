@@ -8,6 +8,7 @@
 #include <QByteArray>
 #include "stegoblock.h"
 #include "aes256.h"
+#include "styles.h"
 
 namespace Ui {
 class Encode;
@@ -34,6 +35,8 @@ private:
     QFile dataFile;
     QFile containerFile;
     QFile stegoFile;
+    QString styles[10];
+
 };
 
 #endif // ENCODE_H
