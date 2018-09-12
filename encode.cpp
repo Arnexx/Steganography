@@ -47,6 +47,7 @@ void Encode::on_startButton_clicked()
 
     int headerLength = 54;
     AES256 aes;
+    bool isKey = true;
     containerFileName = ui->containerFileLineEdit->text();
     ui->progressBar->setValue(0);
 
@@ -73,6 +74,8 @@ void Encode::on_startButton_clicked()
     block.setKey(ui->keyLineEdit->text().toInt());
 
     aes.setKey(ui->aesKeyLineEdit->text().toLatin1());
+    if(ui->aesKeyLineEdit->text() == "")
+        isKey = false;
 
     for(int i=0; i < length; ++i)
     {
@@ -85,9 +88,9 @@ void Encode::on_startButton_clicked()
             dataBlock = dataFile.read(16);
         containerBlock = containerFile.read(128);
 
-        aes.encrypt(dataBlock);
-        //encrypt aes256
-        //
+        if(isKey)
+            aes.encrypt(dataBlock);        //encrypt aes256
+
         block.setDataArray(dataBlock);
         block.setContainerBlock(containerBlock);
 
@@ -114,10 +117,6 @@ void Encode::on_startButton_clicked()
     dataFile.close();
     containerFile.close();
     stegoFile.close();
-
-
-    //QMessageBox::information(this,"Encode", "Done.");
-
 }
 
 void Encode::on_backButton_clicked()

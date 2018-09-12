@@ -3,5 +3,6 @@
         <file>rc/lock.png</file>
         <file>rc/unlock.png</file>
         <file>rc/background.jpg</file>
+        <file>rc/logo.png</file>
     </qresource>
 </RCC>

@@ -2,49 +2,8 @@
 
 GF256::GF256()
 {
-   // file.setFileName("inv.txt");
-   // array.resize(256);
 
 }
-
-//void GF256::test()
-//{
-
-//    file.open(QIODevice::WriteOnly);
-//    char temp[5];
-//    int num = 0;
-//    unsigned char i = 1, j = 1;
-//    temp[3] = ',';
-//    temp[4] = ' ';
-//    array[0] = 0;
-//    for(int indx = 1 ;indx <= 255; indx++)
-//    {
-//        for(int jndx = 0; jndx <= 255; jndx++)
-//        {
-//            if(array[i])
-//            {
-//                if(mult(i,j) == 1)
-//                {
-//                    array[i] = j;
-//                    array[j] = i;
-//                    break;
-//                }
-//            }
-//            j++;
-//        }
-//        num = (array[i] + 256) % 256;
-//        temp[2] = (num % 10) + 48;
-//        num /= 10;
-//        temp[1] = (num % 10) + 48;
-//        num /= 10;
-//        temp[0] = (num % 10) + 48;
-//        num /= 10;
-//        file.write(temp, 5);
-//        i++;
-//    }
-
-//    file.close();
-//}
 
 unsigned char GF256::mult(unsigned char a, unsigned char b)
 {

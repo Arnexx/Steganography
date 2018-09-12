@@ -26,6 +26,11 @@ MainWindow::MainWindow(QWidget *parent) :
     palette.setBrush(QPalette::Background, background);
     this->setPalette(palette);
     this->setFixedSize(360,240);
+
+    pixmap.load(":/image/rc/logo.png");
+    this->setWindowIcon(QIcon(pixmap));
+
+
 }
 
 MainWindow::~MainWindow()

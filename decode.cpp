@@ -67,7 +67,10 @@ void Decode::on_startButton_clicked()
     QString stegoFileName = ui->containerFileLineEdit->text();
     QByteArray containerBlock, dataBlock, bbbb;
     AES256 aes;
+    bool isKey = true;
     aes.setKey(ui->aesKeyLineEdit->text().toLatin1());
+    if(ui->aesKeyLineEdit->text() == "")
+        isKey = false;
     ui->progressBar->setValue(0);
 
     int headerLength = 54;
@@ -90,7 +93,6 @@ void Decode::on_startButton_clicked()
     int containerBlocksAmount = (stegoFile.size() - headerLength) / 128+1;
     int length = containerBlocksAmount;
     StegoBlock block;
-    bool endFlag = false;
     block.setKey(ui->keyLineEdit->text().toInt());
 
     for(int i=0; i < length; ++i)
@@ -101,36 +103,29 @@ void Decode::on_startButton_clicked()
 
 
         if(ui->lsbRadioButton->isChecked())         //decode
-            endFlag = block.decode(stegoType::LSB);
+           block.decode(stegoType::LSB);
 
         if(ui->msbRadioButton->isChecked())         //decode
-            endFlag = block.decode(stegoType::MSB);
+            block.decode(stegoType::MSB);
 
         if(ui->randomBitRadioButton->isChecked())         //decode
-            endFlag = block.decode(stegoType::RandomBits);
+            block.decode(stegoType::RandomBits);
 
         dataBlock = (QByteArray)block.getDataArray();
-        aes.decrypt(dataBlock);                //decrypt aes256
-         ui->progressBar->setValue(i * 100 / length + 1);
+        if(isKey)
+            aes.decrypt(dataBlock);                //decrypt aes256
+        ui->progressBar->setValue(i * 100 / length + 1);
         if(checkNullBlock(dataBlock))
         {
              ui->progressBar->setValue(100);
             break;
         }
         dataFile.write(dataBlock);
-
-        if(endFlag)
-            break;
     }
 
-
+    ui->progressBar->setValue(100);
     dataFile.close();
-
     stegoFile.close();
-
-
-    //QMessageBox::information(this,"Decode", "Done.");
-
 }
 
 bool Decode::checkNullBlock(QByteArray block)
